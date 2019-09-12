@@ -1,4 +1,4 @@
-
+import {Tabs, Tab, TabPanel, TabList} from "react-tabs";
 import React from 'react';
 import Link from 'next/link';
 import axios, { AxiosRequestConfig } from "axios";
@@ -9,6 +9,9 @@ import NoSSR from 'react-no-ssr';
 import Loading from '../components/Loading';
 import VideoItem from '../components/VideoItem';
 
+const style ={
+    display: 'none'
+}
 export default class Index extends React.Component {
 
     showData=(videos)=>
@@ -60,7 +63,7 @@ export default class Index extends React.Component {
         if (req) {
             isServer = true;
             // await Promise.all([
-            //     getDefunkt()               
+            //     getDefunkt()
 
 
             // ]).then((response) => {
@@ -92,7 +95,7 @@ export default class Index extends React.Component {
 
         }
 
-        
+
 
 
         // await axios({
@@ -148,6 +151,7 @@ export default class Index extends React.Component {
         let isLoaded = true;
 
         let arr1 = [],arr2 = [],arr3 = [],arr4 = [];
+
         for(let i =0;i<5;i++)
         {
             arr1.push(data[i]);
@@ -170,42 +174,100 @@ export default class Index extends React.Component {
         console.log(arr2)
         console.log(arr3)
         console.log(arr4)
+        //
+        //
+        // if (!isLoaded)
+        //     return <Loading />
+        // else {
+        //     return (
+        //
+        //         <Template>
+        //             <Head>
+        //                 <title>My seo app</title>
+        //                 <meta name="description" content="testing react helmet" />
+        //                 <meta name="keywords" content="react,seo,helmet" />
+        //             </Head>
+        //             <NoSSR onSSR={<Loading />}>
+        //                 <section>
+        //
+        //                 </section>
+        //             </NoSSR>
+        //             <div>
+        //                 {/* {this.showData(data)} */}
+        //             </div>
+        //
+        //             {/* Tao 4 tab:tab1,tab2... */}
+        //
+        //             <h1>
+        //                 <Link href="/other" prefetch>
+        //                     <a>Ather</a>
+        //                 </Link>
+        //             </h1>
+        //         </Template>
+        //     )
+        // }
+        return <div>
+            <div style={style}>
+            {this.showVideos(data)}
+            </div>
+        <Tabs>
+            <div className="mocha-video-tab">
+
+                    <Tab tabfor="one">
+                        <a>Tab1</a>
+                    </Tab>
+                    <Tab tabfor="two">
+                        <a>Tab2</a>
+                    </Tab>
+                    <Tab tabfor="three">
+                        <a>Tab3</a>
+                    </Tab>
+                    <Tab tabfor="four">
+                        <a>Tab4</a>
+                    </Tab>
+
+            </div>
+
+            <div className="wrap-playnow-home">
+                <TabPanel>
+                    {this.showVideos(arr1)}
+                </TabPanel>
+            </div>
+
+                <div className="wrap-playnow-home">
+                    <TabPanel>
+                    {this.showVideos(arr2)}
+                    </TabPanel>
+                </div>
 
 
-        if (!isLoaded)
-            return <Loading />
-        else {
-            return (
+                <div className="wrap-playnow-home">
+                    <TabPanel>
+                    {this.showVideos(arr3)}
+                    </TabPanel>
+                </div>
 
-                <Template>
-                    <Head>
-                        <title>My seo app</title>
-                        <meta name="description" content="testing react helmet" />
-                        <meta name="keywords" content="react,seo,helmet" />
-                    </Head>
-                    <NoSSR onSSR={<Loading />}>
-                        <section>
 
-                        </section>
-                    </NoSSR>
-                    <div>
-                        {/* {this.showData(data)} */}
-                    </div>
-                    
-                    {/* Tao 4 tab:tab1,tab2... */}
+                <div className="wrap-playnow-home">
+                    <TabPanel>
+                    {this.showVideos(arr4)}
+                    </TabPanel>
+                </div>
 
-                    <h1>
-                        <Link href="/other" prefetch>
-                            <a>Ather</a>
-                        </Link>
-                    </h1>
-                </Template>
-            )
+        </Tabs>
+        </div>
+    }
+    showVideos(videos) {
+
+        var result = null;
+        if (videos) {
+            if (videos.length > 0) {
+                result = videos.map((video, index) => {
+                        return <VideoItem key={index} video={video}/>
+                });
+            }
         }
-
-
-
-
+        return result;
     }
 }
 
